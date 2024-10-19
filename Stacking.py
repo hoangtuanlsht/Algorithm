@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from scipy import stats
 
 # 1. Đọc file CSV chứa dữ liệu thật
-df = pd.read_csv("/Users/nguyenvietanh/Desktop/Web/Numpy_project/vietnam_housing_dataset_filtered_hanoi.csv")
+df = pd.read_csv("vietnam_housing_dataset_filtered_hanoi.csv")
 
 # 2. Lọc dữ liệu chỉ cho "Đống Đa"
 dc = df[df["Address"].str.contains("Đống Đa", na=False)]
@@ -42,8 +42,8 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_filtered, test_s
 # 9. Khởi tạo các mô hình cơ bản (base models)
 base_models = [
     ('linear', LinearRegression()),
-    ('lasso', Lasso(alpha = 0.1)),
-    ('mlp', MLPRegressor(hidden_layer_sizes=(50, 50), max_iter=500, random_state=42))
+    ('lasso', Lasso(alpha = 0.0001)),
+    ('mlp', MLPRegressor(hidden_layer_sizes=(100, 100),activation='tanh', max_iter=500, alpha=0.9, random_state=42))
 ]
 
 # 10. Khởi tạo mô hình meta (meta-model) là Linear Regression

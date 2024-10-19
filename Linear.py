@@ -8,7 +8,7 @@ from scipy import stats
 from sklearn.preprocessing import StandardScaler
 
 # 1. Đọc file CSV chứa dữ liệu thật
-df = pd.read_csv("/Users/nguyenvietanh/Desktop/Web/Numpy_project/vietnam_housing_dataset_filtered_hanoi.csv")
+df = pd.read_csv("vietnam_housing_dataset_filtered_hanoi.csv")
 
 # 2. Lọc dữ liệu chỉ cho "Đống Đa"
 dc = df[df["Address"].str.contains("Đống Đa", na=False)]
@@ -100,3 +100,25 @@ print("Intercept (beta_0):", model.intercept_)
 print("Mean Squared Error (MSE):", mse)
 print("Mean Absolute Error (MAE):", mae)
 print("R² (R-squared):", r2)
+alphas = np.logspace(-4, 1, 20)
+r2_scores = []
+mse_scores = []
+mae_scores = []
+
+# Thử nghiệm các giá trị alpha khác nhau và lưu R², MSE, MAE
+for alpha in alphas:
+    lasso_model = Lasso(alpha=alpha)
+    lasso_model.fit(X_train, y_train)
+    y_pred = lasso_model.predict(X_test)
+    
+    # Tính R²
+    r2 = r2_score(y_test, y_pred)
+    r2_scores.append(r2)
+    
+    # Tính MSE
+    mse = mean_squared_error(y_test, y_pred)
+    mse_scores.append(mse)
+    
+    # Tính MAE
+    mae = mean_absolute_error(y_test, y_pred)
+    mae_scores.append(mae)

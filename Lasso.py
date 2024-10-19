@@ -38,7 +38,6 @@ X_scaled = scaler.fit_transform(X_filtered)
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_filtered, test_size=0.2, random_state=42)
 
 # 9. Khởi tạo và huấn luyện mô hình Lasso
-# alpha là tham số điều chỉnh mức độ regularization (giá trị càng cao thì regularization càng mạnh)
 lasso_model = Lasso(alpha=0.0001)
 lasso_model.fit(X_train, y_train)
 
@@ -49,6 +48,7 @@ y_pred = lasso_model.predict(X_test)
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 mae = mean_absolute_error(y_test, y_pred)
+
 
 # 12. Dự đoán giá nhà cho ví dụ ngẫu nhiên
 Nha_vi_du = pd.DataFrame({
